@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+      "target": "esnext",
+      "allowSyntheticDefaultImports": false,
+      "baseUrl": "./",
+      "paths": {
+        "@client/*": ["src/client/*"],
+        "@config/*": ["config/*"],
+      }
+    },
+    "exclude": ["node_modules", "dist"]
+  }
