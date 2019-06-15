@@ -2,6 +2,7 @@
 
 This is a boilerplate for isomorphic app development using React, containing modern web development tools:
 - React
+- React Router
 - Webpack 4
 - Koa
 - Babel
@@ -20,7 +21,7 @@ The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
 ## To-Do:
-- React Router
+- ~~React Router~~
 - Redux
 - CSS-modules
 - Code Splitting

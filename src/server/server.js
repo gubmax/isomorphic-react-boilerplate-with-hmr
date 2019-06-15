@@ -1,16 +1,23 @@
+/* eslint-disable no-console */
 import Koa from 'koa'
 import Router from 'koa-router'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
+import { StaticRouter } from 'react-router-dom'
 
 import { PROTOCOL, HOST, PORT_CLIENT } from '@config/env'
 import { clearConsole, consoleOutput } from '@config/etc'
+import App from '@client/components/App'
 
 const app = new Koa()
 const router = new Router()
 
 router.get('/*', async (ctx) => {
-  const application = renderToString(<App />)
+  const initialHTML = renderToString((
+    <StaticRouter location={ctx.url}>
+      <App />
+    </StaticRouter>
+  ))
 
   const html = `
     <!doctype html>
@@ -23,10 +30,10 @@ router.get('/*', async (ctx) => {
             <meta name="viewport" content="width=device-width, initial-scale=1">
         </head>
         <body>
-            <div id="root">${application}</div>
+            <div id="root">${initialHTML}</div>
             <script src="${PROTOCOL}://${HOST}:${PORT_CLIENT}/bundle.js"></script>
         </body>
-    </html>
+    </html> 
   `
 
   ctx.body = html
