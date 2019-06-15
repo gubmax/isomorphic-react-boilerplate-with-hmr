@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
-const StartServerPlugin = require('start-server-webpack-plugin')
+
+const StartServerPlugin = require('./StartServerWebpackPlugin')
 
 const paths = require('./paths')
 
