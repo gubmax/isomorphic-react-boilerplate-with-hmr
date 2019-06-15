@@ -7,7 +7,8 @@ const { HOST, PORT_CLIENT } = require('../config/env')
 const webpackConfig = require('../config/webpack.config.client.dev')
 const webpackDevServerConfig = require('../config/webpackDevServer.config')
 const {
-  consoleLog,
+  consoleOutput,
+  consoleLinkMsg,
   clearConsole,
   isInteractive,
   createCompiler,
@@ -16,31 +17,41 @@ const {
 process.env.BABEL_ENV = 'development'
 process.env.NODE_ENV = 'development'
 
+consoleOutput('INFO', 'Starting webpack-dev-server...')
+
 process.on('unhandledRejection', (err) => {
-  consoleLog('ERR', 'Failed to compile.\n')
+  consoleOutput('ERR', 'Failed to compile for webpack-dev-server.')
   throw err
 })
 
 const compiler = createCompiler(webpack, webpackConfig)
 const devServer = new WebpackDevServer(compiler, webpackDevServerConfig)
+let isNotFirstCompile = false
 
 devServer.listen(PORT_CLIENT, HOST, (err) => {
-  if (isInteractive) {
+  if (isInteractive && isNotFirstCompile) {
     clearConsole()
   }
 
   if (err) {
-    return console.log(err)
+    consoleOutput('ERR', 'Webpack-dev-server failed to start.')
+    console.log(err)
+    return false
   }
 
-  consoleLog('INFO', 'Starting the development server...\n')
-
-  Array.of('SIGINT', 'SIGTERM').forEach((sig) => {
-    process.on(sig, () => {
-      devServer.close()
-      process.exit()
-    })
-  })
+  consoleOutput('DONE', 'Webpack-dev-server started!')
+  if (isInteractive && isNotFirstCompile) {
+    consoleLinkMsg()
+  } else {
+    isNotFirstCompile = true
+  }
 
   return true
+})
+
+Array.of('SIGINT', 'SIGTERM').forEach((sig) => {
+  process.on(sig, () => {
+    devServer.close()
+    process.exit()
+  })
 })

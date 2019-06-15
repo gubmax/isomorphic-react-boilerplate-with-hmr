@@ -4,7 +4,7 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 
 import { PROTOCOL, HOST, PORT_CLIENT } from '@config/env'
-import App from '@client/App'
+import { clearConsole, consoleOutput } from '@config/etc'
 
 const app = new Koa()
 const router = new Router()
@@ -33,5 +33,11 @@ router.get('/*', async (ctx) => {
 })
 
 app.use(router.routes())
+
+app.on('error', (err) => {
+  clearConsole()
+  consoleOutput('ERR', 'Runtime error on server side')
+  console.error(err)
+})
 
 export default app
