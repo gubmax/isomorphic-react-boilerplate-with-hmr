@@ -22,8 +22,6 @@ You will also see any lint errors in the console.
 
 ## To-Do:
 - ~~React Router~~
-- Redux
-- CSS-modules
 - Code Splitting
 - Production script
 - Test runner

@@ -5,7 +5,9 @@ const appDirectory = fs.realpathSync(process.cwd())
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath)
 
 const appAliases = {
-  '@client': resolveApp('src/client'),
+  '@components': resolveApp('src/client/components'),
+  '@hooks': resolveApp('src/client/hooks'),
+  '@utils': resolveApp('src/utils'),
   '@config': resolveApp('config'),
 }
 

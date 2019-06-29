@@ -4,7 +4,9 @@
       "allowSyntheticDefaultImports": false,
       "baseUrl": "./",
       "paths": {
-        "@client/*": ["src/client/*"],
+        "@components/*": ["src/client/components/*"],
+        "@hooks/*": ["src/client/hooks/*"],
+        "@utils/*": ["src/utils/*"],
         "@config/*": ["config/*"],
       }
     },
