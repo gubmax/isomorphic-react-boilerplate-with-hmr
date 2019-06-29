@@ -1,4 +1,4 @@
-# Isomorphic react boilerplate with HMR
+# Isomorphic react boilerplate
 
 This is a boilerplate for isomorphic app development using React, containing modern web development tools:
 - React

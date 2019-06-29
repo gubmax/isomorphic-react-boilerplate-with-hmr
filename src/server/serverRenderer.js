@@ -47,7 +47,7 @@ const serverRenderer = async (ctx) => {
         <head>
           <meta charset="utf-8">
           <meta http-equiv="x-ua-compatible" content="ie=edge">
-          <title>Isomorphic react boilerplate with HMR</title>
+          <title>Isomorphic react boilerplate</title>
           <meta name="description" content="">
           <meta name="viewport" content="width=device-width, initial-scale=1">
           <!-- JavaScripts -->

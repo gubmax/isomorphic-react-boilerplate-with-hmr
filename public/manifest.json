@@ -1,6 +1,6 @@
 {
   "short_name": "Isomorphic boilerplate",
-  "name": "Isomorphic react boilerplate with HMR",
+  "name": "Isomorphic react boilerplate",
   "icons": [
     {
       "src": "favicon.ico",
