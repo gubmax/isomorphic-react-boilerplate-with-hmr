@@ -43,10 +43,10 @@ const useInitialProps = (url) => {
       if (didCancel === true) return
 
       dispatch({ type: 'FETCH_START' })
-      const { initialActionType } = routes.find(route => route.path === url)
+      const { initialActionType } = routes.find((route) => route.path === url)
       getInitialProps(url, rootDispatch, initialActionType)
         .then(() => dispatch({ type: 'FETCH_SUCCESS', payload: true }))
-        .catch(err => dispatch({ type: 'FETCH_FAILURE', payload: err }))
+        .catch((err) => dispatch({ type: 'FETCH_FAILURE', payload: err }))
     }
 
     if (history.action !== 'POP') {

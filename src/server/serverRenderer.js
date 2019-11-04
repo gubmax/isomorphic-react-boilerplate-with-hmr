@@ -3,21 +3,18 @@ import { renderToString } from 'react-dom/server'
 import { StaticRouter, matchPath } from 'react-router-dom'
 
 import { PROTOCOL, HOST, PORT_CLIENT } from '@config/env'
-import {
-  routes,
-  getInitialProps,
-  RootStateProvider,
-  rootReducer,
-} from '@utils'
 import App from '@components/App'
+import {
+  routes, getInitialProps, RootStateProvider, rootReducer,
+} from '@utils'
 
-const getData = url => (
+const getData = (url) => (
   routes
-    .filter(route => matchPath(url, route) && !!route.initialActionType)
+    .filter((route) => matchPath(url, route) && !!route.initialActionType)
     .map(({ initialActionType }) => (
       getInitialProps(
         url,
-        obj => rootReducer({}, obj),
+        (obj) => rootReducer({}, obj),
         initialActionType,
       )
     ))
