@@ -1,22 +1,10 @@
-const axios = require('axios')
+import fetch from 'node-fetch'
 
 const { PROTOCOL, HOST, PORT_SERVER } = require('@config/env')
 
-const fetchData = async ({
-  method = 'GET',
-  url = '',
-  data = {},
-}) => {
-  const params = {
-    method,
-    url: `${PROTOCOL}://${HOST}:${PORT_SERVER}${url}`,
-  }
-
-  if (method === 'POST') {
-    params.body = data
-  }
-
-  return axios(params)
-}
+const fetchData = async (url, options = {}) => (
+  fetch(`${PROTOCOL}://${HOST}:${PORT_SERVER}${url}`, options)
+    .then((res) => res.json())
+)
 
 export default fetchData

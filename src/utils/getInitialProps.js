@@ -1,8 +1,8 @@
 import fetchData from './fetchData'
 
 const getInitialProps = (url, dispatch, type) => (
-  fetchData({ method: 'POST', url })
-    .then((res) => dispatch({ type, payload: res.data }))
+  fetchData(url, { method: 'POST' })
+    .then((res) => dispatch({ type, payload: res }))
 )
 
 export default getInitialProps
