@@ -1,7 +1,7 @@
 module.exports = {
   PROTOCOL: 'http',
   HOST: 'localhost',
-  PORT_SERVER: 3000,
-  PORT_CLIENT: 3001,
+  PORT_APP: 3000,
+  PORT_SERVER: 8080,
   API_PREFIX: '/api',
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch, Route, Link } from 'react-router-dom'
 
-import { HomePage, UsersPage } from '@components/pages'
+import { HomePage, UsersPage } from '@app/components/pages'
 
 const App = () => (
   <>

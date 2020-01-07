@@ -1,11 +1,7 @@
 const cluster = require('cluster')
 
-const { PORT_SERVER } = require('./env')
-const {
-  clearConsole,
-  isInteractive,
-  consoleOutput,
-} = require('./etc')
+const { PORT_SERVER } = require('../env')
+const { clearConsole, isInteractive, consoleOutput } = require('../etc/console')
 
 class StartServerPlugin {
   constructor(options) {
@@ -43,6 +39,7 @@ class StartServerPlugin {
 
     cluster.setupMaster(clusterOptions)
 
+    // consoleOutput('ERR', 'on!')
     cluster.on('online', (worker) => {
       this.worker = worker
     })

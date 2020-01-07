@@ -2,22 +2,31 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter, matchPath } from 'react-router-dom'
 
-import { PROTOCOL, HOST, PORT_CLIENT } from '@config/env'
-import App from '@components/App'
 import {
-  routes, getInitialProps, RootStateProvider, rootReducer,
+  routes,
+  RootStateProvider,
+  rootReducer,
 } from '@utils'
+import App from '@app/components/App'
+import getHtmlTemplate from './html-template'
 
 const getData = (url) => (
   routes
-    .filter((route) => matchPath(url, route) && !!route.initialActionType)
-    .map(({ initialActionType }) => (
-      getInitialProps(
-        url,
-        (obj) => rootReducer({}, obj),
-        initialActionType,
-      )
-    ))
+    .filter((route) => matchPath(url, route))
+    .reduce((acc, route) => {
+      let component = require(`${__dirname}/../app/components/pages/${route.componentName}`)
+
+      if (component.default) {
+        component = component.default
+      }
+
+      if (typeof component.getInitialProps === 'function') {
+        const initialPropsPromise = component.getInitialProps((obj) => rootReducer({}, obj))
+        acc.push(initialPropsPromise)
+      }
+
+      return acc
+    }, [])
 )
 
 const serverRenderer = async (ctx) => {
@@ -30,7 +39,7 @@ const serverRenderer = async (ctx) => {
         : acc
     ), {})
 
-    const initialHTML = renderToString((
+    const initialHtml = renderToString((
       <RootStateProvider state={initialState}>
         <StaticRouter location={ctx.url}>
           <App />
@@ -38,29 +47,7 @@ const serverRenderer = async (ctx) => {
       </RootStateProvider>
     ))
 
-    const html = `
-      <!doctype html>
-      <html lang="ru">
-        <head>
-          <meta charset="utf-8">
-          <meta http-equiv="x-ua-compatible" content="ie=edge">
-          <title>Isomorphic react boilerplate</title>
-          <meta name="description" content="">
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <!-- JavaScripts -->
-          <script type="text/javascript" id="state">
-              window.INITIAL_STATE = ${JSON.stringify(initialState).replace(/</g, '\\u003c')};
-              document.getElementById('state').remove();
-          </script>
-        </head>
-        <body>
-          <div id="root">${initialHTML}</div>
-          <script src="${PROTOCOL}://${HOST}:${PORT_CLIENT}/bundle.js"></script>
-        </body>
-      </html> 
-    `
-
-    ctx.body = html
+    ctx.body = getHtmlTemplate(initialHtml, initialState)
   })
 }
 

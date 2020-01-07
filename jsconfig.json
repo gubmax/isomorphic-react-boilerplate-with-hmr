@@ -1,14 +1,13 @@
 {
-    "compilerOptions": {
-      "target": "esnext",
-      "allowSyntheticDefaultImports": false,
-      "baseUrl": "./",
-      "paths": {
-        "@components/*": ["src/client/components/*"],
-        "@hooks/*": ["src/client/hooks/*"],
-        "@utils/*": ["src/utils/*"],
-        "@config/*": ["config/*"],
-      }
-    },
-    "exclude": ["node_modules", "dist"]
-  }
+  "compilerOptions": {
+    "target": "esnext",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./",
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@utils/*": ["src/utils/*"],
+      "@config/*": ["config/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

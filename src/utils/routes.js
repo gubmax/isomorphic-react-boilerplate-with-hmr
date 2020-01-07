@@ -8,7 +8,6 @@ const routes = [
     path: '/users',
     exact: true,
     componentName: 'UsersPage',
-    initialActionType: 'USERS_SET',
   },
 ]
 

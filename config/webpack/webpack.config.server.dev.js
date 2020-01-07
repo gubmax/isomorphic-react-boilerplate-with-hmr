@@ -2,20 +2,20 @@ const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
 
 const StartServerPlugin = require('./StartServerWebpackPlugin')
-
-const paths = require('./paths')
+const paths = require('../paths')
 
 module.exports = {
   name: 'server',
   target: 'node',
   mode: 'development',
   watch: true,
+  devtool: 'source-map',
   entry: [
     'webpack/hot/poll?1000',
     paths.appServerIndex,
   ],
   output: {
-    path: paths.appServerDist,
+    path: paths.appDist,
     filename: 'bundle.node.js',
     publicPath: '/',
   },

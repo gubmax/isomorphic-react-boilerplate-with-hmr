@@ -42,10 +42,11 @@
       "error",
       "single"
     ],
-    "global-require": 0,
-    "import/no-dynamic-require": 0,
-    "import/no-unresolved": 0,
-    "react/prop-types": 0,
-    "react/forbid-prop-types": 0
+    "global-require": "off",
+    "import/no-dynamic-require": "off",
+    "import/no-unresolved": "off",
+    "react/prop-types": "off",
+    "react/forbid-prop-types": "off",
+    "import/extensions": "off"
   }
 }

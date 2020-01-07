@@ -5,5 +5,4 @@ export {
   useRootState,
   rootReducer,
 } from './rootState'
-export { default as getInitialProps } from './getInitialProps'
 export { default as routes } from './routes'

@@ -1,13 +1,12 @@
 import { useReducer, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 
-import { useRootState, getInitialProps, routes } from '@utils'
-import { useHistory } from '@hooks'
+import { useRootState } from '@utils'
 
 const initialState = {
   isFetching: false,
   error: null,
 }
-
 const reducer = (state, { type, payload }) => {
   switch (type) {
     case 'FETCH_START':
@@ -31,21 +30,25 @@ const reducer = (state, { type, payload }) => {
   }
 }
 
-const useInitialProps = (url) => {
+const useInitialProps = (getInitialProps) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [, rootDispatch] = useRootState()
-  const { history } = useHistory()
+  const history = useHistory()
 
   useEffect(() => {
     let didCancel = false
 
     const loadData = () => {
-      if (didCancel === true) return
+      if (didCancel === true) {
+        return
+      }
 
       dispatch({ type: 'FETCH_START' })
-      const { initialActionType } = routes.find((route) => route.path === url)
-      getInitialProps(url, rootDispatch, initialActionType)
-        .then(() => dispatch({ type: 'FETCH_SUCCESS', payload: true }))
+
+      getInitialProps(rootDispatch)
+        .then(() => {
+          dispatch({ type: 'FETCH_SUCCESS', payload: true })
+        })
         .catch((err) => dispatch({ type: 'FETCH_FAILURE', payload: err }))
     }
 
@@ -58,7 +61,7 @@ const useInitialProps = (url) => {
     }
   }, [])
 
-  return [state, dispatch]
+  return state
 }
 
 export default useInitialProps

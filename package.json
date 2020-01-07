@@ -5,10 +5,10 @@
   "license": "MIT",
   "author": "Maksim Gubyshev <gubyshev@gmail.com> (https://github.com/gubmax)",
   "scripts": {
+    "start": "node scripts/start.js",
+    "start:app": "node scripts/start:app.js",
     "start:server": "node scripts/start:server.js",
-    "start:client": "node scripts/start:client.js",
-    "start": "npm run start:server & npm run start:client",
-    "debug": "node --inspect-brk=5858 scripts/start:server.js",
+    "debug:server": "node --inspect-brk=5858 scripts/start:server.js",
     "lint": "eslint src/ --ext .js,.jsx --fix; exit 0"
   },
   "dependencies": {

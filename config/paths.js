@@ -2,11 +2,10 @@ const path = require('path')
 const fs = require('fs')
 
 const appDirectory = fs.realpathSync(process.cwd())
-const resolveApp = relativePath => path.resolve(appDirectory, relativePath)
+const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath)
 
 const appAliases = {
-  '@components': resolveApp('src/client/components'),
-  '@hooks': resolveApp('src/client/hooks'),
+  '@app': resolveApp('src/app'),
   '@utils': resolveApp('src/utils'),
   '@config': resolveApp('config'),
 }
@@ -29,10 +28,9 @@ module.exports = {
   appPath: resolveApp('.'),
   appDist: resolveApp('dist'),
   appSrc: resolveApp('src'),
-  appServerDist: resolveApp('dist/server'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
-  appClientIndex: resolveApp('src/client/index.js'),
+  appIndex: resolveApp('src/app/index.js'),
   appServerIndex: resolveApp('src/server/index.js'),
 }
 

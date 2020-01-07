@@ -1,18 +1,12 @@
 /* eslint-disable no-console */
-
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 
-const { HOST, PORT_CLIENT } = require('../config/env')
-const webpackConfig = require('../config/webpack.config.client.dev')
-const webpackDevServerConfig = require('../config/webpackDevServer.config')
-const {
-  consoleOutput,
-  consoleLinkMsg,
-  clearConsole,
-  isInteractive,
-  createCompiler,
-} = require('../config/etc')
+const { HOST, PORT_APP } = require('../config/env')
+const webpackConfig = require('../config/webpack/webpack.config.app.dev')
+const webpackDevServerConfig = require('../config/webpack/webpackDevServer.config')
+const createCompiler = require('../config/etc/createCompiler')
+const { consoleOutput, consoleSuccessMsg, consoleAppLink } = require('../config/etc/console')
 
 process.env.BABEL_ENV = 'development'
 process.env.NODE_ENV = 'development'
@@ -26,24 +20,19 @@ process.on('unhandledRejection', (err) => {
 
 const compiler = createCompiler(webpack, webpackConfig)
 const devServer = new WebpackDevServer(compiler, webpackDevServerConfig)
-let isNotFirstCompile = false
 
-devServer.listen(PORT_CLIENT, HOST, (err) => {
-  if (isInteractive && isNotFirstCompile) {
-    clearConsole()
-  }
-
+devServer.listen(PORT_APP, HOST, (err) => {
   if (err) {
     consoleOutput('ERR', 'Webpack-dev-server failed to start.')
     console.log(err)
     return false
   }
 
-  consoleOutput('DONE', 'Webpack-dev-server started!')
-  if (isInteractive && isNotFirstCompile) {
-    consoleLinkMsg()
+  if (process.send) {
+    process.send(true)
   } else {
-    isNotFirstCompile = true
+    consoleSuccessMsg()
+    consoleAppLink()
   }
 
   return true

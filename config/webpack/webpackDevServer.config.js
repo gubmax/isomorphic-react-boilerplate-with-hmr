@@ -1,12 +1,9 @@
-const config = require('./webpack.config.client.dev')
+const config = require('./webpack.config.app.dev')
 
 const {
-  PROTOCOL,
-  HOST,
-  PORT_SERVER,
-  PORT_CLIENT,
-} = require('./env')
-const paths = require('./paths')
+  PROTOCOL, HOST, PORT_SERVER, PORT_APP,
+} = require('../env')
+const paths = require('../paths')
 
 module.exports = {
   compress: true,
@@ -18,7 +15,7 @@ module.exports = {
   quiet: true,
   https: PROTOCOL === 'https',
   host: HOST,
-  port: PORT_CLIENT,
+  port: PORT_APP,
   headers: {
     'Access-Control-Allow-Origin': `http://${HOST}:${PORT_SERVER}`,
   },

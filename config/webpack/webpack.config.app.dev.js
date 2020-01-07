@@ -1,23 +1,23 @@
 const webpack = require('webpack')
 
-const { PORT_CLIENT } = require('./env')
-const paths = require('./paths')
+const { PORT_APP } = require('../env')
+const paths = require('../paths')
 
 module.exports = {
-  name: 'client',
+  name: 'app',
   target: 'web',
   mode: 'development',
   devtool: 'cheap-module-source-map',
   entry: [
-    `webpack-dev-server/client?http://localhost:${PORT_CLIENT}`,
+    `webpack-dev-server/client?http://localhost:${PORT_APP}`,
     'webpack/hot/only-dev-server',
-    paths.appClientIndex,
+    paths.appIndex,
   ],
   output: {
     pathinfo: true,
     path: paths.appDist,
     filename: 'bundle.js',
-    publicPath: `http://localhost:${PORT_CLIENT}/`,
+    publicPath: `http://localhost:${PORT_APP}/`,
   },
   resolve: {
     extensions: paths.moduleFileExtensions,
