@@ -1,6 +1,6 @@
 const cluster = require('cluster')
 
-const { PORT_SERVER } = require('../env')
+const { APP_SERVER_PORT } = process.env
 const { clearConsole, isInteractive, consoleOutput } = require('../etc/console')
 
 class StartServerPlugin {
@@ -34,12 +34,11 @@ class StartServerPlugin {
 
     const clusterOptions = {
       exec: assetName.existsAt,
-      inspectPort: PORT_SERVER,
+      inspectPort: APP_SERVER_PORT,
     }
 
     cluster.setupMaster(clusterOptions)
 
-    // consoleOutput('ERR', 'on!')
     cluster.on('online', (worker) => {
       this.worker = worker
     })

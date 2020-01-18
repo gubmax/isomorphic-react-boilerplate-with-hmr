@@ -1,5 +1,9 @@
 const { fork } = require('child_process')
 
+process.env.BABEL_ENV = 'development'
+process.env.NODE_ENV = 'development'
+
+require('../config/env')
 const paths = require('../config/paths')
 const {
   consoleOutput, consoleSuccessMsg, consoleAppLink, consoleServerLink,

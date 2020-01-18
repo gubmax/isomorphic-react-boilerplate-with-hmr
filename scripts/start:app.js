@@ -2,14 +2,14 @@
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 
-const { HOST, PORT_APP } = require('../config/env')
+process.env.BABEL_ENV = 'development'
+process.env.NODE_ENV = 'development'
+
+require('../config/env')
 const webpackConfig = require('../config/webpack/webpack.config.app.dev')
 const webpackDevServerConfig = require('../config/webpack/webpackDevServer.config')
 const createCompiler = require('../config/etc/createCompiler')
 const { consoleOutput, consoleSuccessMsg, consoleAppLink } = require('../config/etc/console')
-
-process.env.BABEL_ENV = 'development'
-process.env.NODE_ENV = 'development'
 
 consoleOutput('INFO', 'Starting webpack-dev-server...')
 
@@ -20,8 +20,9 @@ process.on('unhandledRejection', (err) => {
 
 const compiler = createCompiler(webpack, webpackConfig)
 const devServer = new WebpackDevServer(compiler, webpackDevServerConfig)
+const { APP_HOST, APP_PORT } = process.env
 
-devServer.listen(PORT_APP, HOST, (err) => {
+devServer.listen(APP_PORT, APP_HOST, (err) => {
   if (err) {
     consoleOutput('ERR', 'Webpack-dev-server failed to start.')
     console.log(err)

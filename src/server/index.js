@@ -1,12 +1,11 @@
 import http from 'http'
 
-import { PORT_SERVER } from '@config/env'
 import app from './main'
 
 const server = http.createServer(app.callback())
 let currentApp = app
 
-server.listen(PORT_SERVER)
+server.listen(process.env.APP_SERVER_PORT)
 
 if (module.hot) {
   module.hot.accept('./main', () => {

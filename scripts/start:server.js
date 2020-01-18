@@ -1,13 +1,14 @@
 /* eslint-disable no-console */
 const webpack = require('webpack')
 
+process.env.BABEL_ENV = 'development'
+process.env.NODE_ENV = 'development'
+
+require('../config/env')
 const webpackConfig = require('../config/webpack/webpack.config.server.dev')
 const createCompiler = require('../config/etc/createCompiler')
 const removeDist = require('../config/etc/removeDist')
 const { consoleOutput, consoleSuccessMsg, consoleServerLink } = require('../config/etc/console')
-
-process.env.BABEL_ENV = 'development'
-process.env.NODE_ENV = 'development'
 
 removeDist()
 

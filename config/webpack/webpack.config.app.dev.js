@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 
-const { PORT_APP } = require('../env')
+const { APP_PORT } = process.env
 const paths = require('../paths')
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
   mode: 'development',
   devtool: 'cheap-module-source-map',
   entry: [
-    `webpack-dev-server/client?http://localhost:${PORT_APP}`,
+    `webpack-dev-server/client?http://localhost:${APP_PORT}`,
     'webpack/hot/only-dev-server',
     paths.appIndex,
   ],
@@ -17,7 +17,7 @@ module.exports = {
     pathinfo: true,
     path: paths.appDist,
     filename: 'bundle.js',
-    publicPath: `http://localhost:${PORT_APP}/`,
+    publicPath: `http://localhost:${APP_PORT}/`,
   },
   resolve: {
     extensions: paths.moduleFileExtensions,
@@ -70,5 +70,8 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
+    }),
   ],
 }

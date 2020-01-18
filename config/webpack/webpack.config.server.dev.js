@@ -51,5 +51,8 @@ module.exports = {
     new StartServerPlugin('bundle.node.js'),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
+    }),
   ],
 }

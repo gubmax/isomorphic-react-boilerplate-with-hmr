@@ -1,4 +1,4 @@
-import { PROTOCOL, HOST, PORT_APP } from '@config/env'
+const { APP_PROTOCOL, APP_HOST, APP_PORT } = process.env
 
 const getHtmlTemplate = (initialHtml, initialState) => `
   <!doctype html>
@@ -16,7 +16,7 @@ const getHtmlTemplate = (initialHtml, initialState) => `
     </head>
     <body>
       <div id="root">${initialHtml}</div>
-      <script src="${PROTOCOL}://${HOST}:${PORT_APP}/bundle.js"></script>
+      <script src="${APP_PROTOCOL}://${APP_HOST}:${APP_PORT}/bundle.js"></script>
     </body>
   </html> 
 `

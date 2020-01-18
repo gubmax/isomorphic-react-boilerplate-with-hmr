@@ -1,8 +1,8 @@
 const config = require('./webpack.config.app.dev')
 
 const {
-  PROTOCOL, HOST, PORT_SERVER, PORT_APP,
-} = require('../env')
+  APP_PROTOCOL, APP_HOST, APP_SERVER_PORT, APP_PORT,
+} = process.env
 const paths = require('../paths')
 
 module.exports = {
@@ -13,11 +13,11 @@ module.exports = {
   hot: true,
   publicPath: config.output.publicPath,
   quiet: true,
-  https: PROTOCOL === 'https',
-  host: HOST,
-  port: PORT_APP,
+  https: APP_PROTOCOL === 'https',
+  host: APP_HOST,
+  port: APP_PORT,
   headers: {
-    'Access-Control-Allow-Origin': `http://${HOST}:${PORT_SERVER}`,
+    'Access-Control-Allow-Origin': `http://${APP_HOST}:${APP_SERVER_PORT}`,
   },
   overlay: false,
   historyApiFallback: {
