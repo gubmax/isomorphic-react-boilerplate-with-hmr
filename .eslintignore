@@ -1,2 +1,4 @@
+config/webpack/InterpolateHtmlPlugin.js
+
 # production
 dist/*
