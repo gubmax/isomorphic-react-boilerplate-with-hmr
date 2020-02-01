@@ -5,8 +5,12 @@ import { BrowserRouter } from 'react-router-dom'
 import { RootStateProvider, rootReducer } from '@utils'
 import App from './components/App'
 
-const initialState = window.INITIAL_STATE
-delete window.INITIAL_STATE
+let initialState = {}
+
+if (window.INITIAL_STATE) {
+  initialState = window.INITIAL_STATE
+  delete window.INITIAL_STATE
+}
 
 const hydrateApp = (Component) => {
   hydrate((

@@ -8,6 +8,7 @@ const appAliases = {
   '@app': resolveApp('src/app'),
   '@utils': resolveApp('src/utils'),
   '@config': resolveApp('config'),
+  '@public': resolveApp('public'),
 }
 
 const moduleFileExtensions = [

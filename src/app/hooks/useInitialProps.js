@@ -7,6 +7,7 @@ const initialState = {
   isFetching: false,
   error: null,
 }
+
 const reducer = (state, { type, payload }) => {
   switch (type) {
     case 'FETCH_START':

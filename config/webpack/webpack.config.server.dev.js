@@ -4,6 +4,8 @@ const nodeExternals = require('webpack-node-externals')
 const StartServerPlugin = require('./StartServerWebpackPlugin')
 const paths = require('../paths')
 
+const { APP_PUBLIC_URL } = process.env
+
 module.exports = {
   name: 'server',
   target: 'node',
@@ -17,7 +19,7 @@ module.exports = {
   output: {
     path: paths.appDist,
     filename: 'bundle.node.js',
-    publicPath: '/',
+    publicPath: paths.appPublic,
   },
   externals: [
     nodeExternals({ whitelist: ['webpack/hot/poll?1000'] }),
@@ -27,6 +29,19 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.html$/,
+        include: [paths.appHtml],
+        use: [
+          {
+            options: {
+              serializeFuncPath: `${paths.appPath}/src/server/serializeHtmlTemplateFunc.js`,
+              replaceableVariables: { APP_PUBLIC_URL },
+            },
+            loader: `${paths.appPath}/config/webpack/serializeHtmlTemplateLoader.js`,
+          },
+        ],
+      },
       {
         test: /\.(js|mjs|jsx)$/,
         enforce: 'pre',

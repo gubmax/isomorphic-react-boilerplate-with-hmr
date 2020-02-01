@@ -1,7 +1,10 @@
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const { APP_PORT } = process.env
 const paths = require('../paths')
+const InterpolateHtmlPlugin = require('./InterpolateHtmlPlugin')
+
+const { APP_PORT, APP_PUBLIC_URL } = process.env
 
 module.exports = {
   name: 'app',
@@ -73,5 +76,10 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(process.env),
     }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: paths.appHtml,
+    }),
+    new InterpolateHtmlPlugin({ APP_PUBLIC_URL }),
   ],
 }
