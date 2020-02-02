@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { fetchData } from '@utils'
+import { fetchData } from '@helpers'
 import { useStore } from '@app/store'
 import { useInitialProps } from '@app/hooks'
 

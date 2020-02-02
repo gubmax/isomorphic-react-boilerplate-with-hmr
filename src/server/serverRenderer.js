@@ -2,7 +2,7 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter, matchPath } from 'react-router-dom'
 
-import { routes } from '@utils'
+import { routes } from '@helpers'
 import { StoreProvider, mainReducer, initialState } from '@app/store'
 import App from '@app/components/App'
 import getHtmlTemplate from '@public/index.html'

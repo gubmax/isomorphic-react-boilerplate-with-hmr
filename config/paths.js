@@ -6,7 +6,7 @@ const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath)
 
 const appAliases = {
   '@app': resolveApp('src/app'),
-  '@utils': resolveApp('src/utils'),
+  '@helpers': resolveApp('src/helpers'),
   '@config': resolveApp('config'),
   '@public': resolveApp('public'),
 }
