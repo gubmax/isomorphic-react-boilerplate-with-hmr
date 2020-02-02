@@ -1,26 +1,18 @@
-/* eslint-disable no-console */
-import Koa from 'koa'
-import cors from '@koa/cors'
-import serve from 'koa-static'
+import http from 'http'
 
-import paths from '@config/paths'
-import { clearConsole, consoleOutput } from '@config/etc/console'
-import router from './router'
+import app from './app'
 
-const app = new Koa()
+const server = http.createServer(app.callback())
 
-const corsOptions = {
-  'Access-Control-Allow-Origin': '*',
+server.listen(process.env.APP_SERVER_PORT)
+
+if (module.hot) {
+  let currentApp = app
+  module.hot.accept('./app', () => {
+    server.removeListener('request', () => currentApp)
+    server.on('request', () => app)
+    currentApp = app
+  })
 }
 
-app.use(cors(corsOptions))
-app.use(router.routes())
-app.use(serve(paths.appPublic))
-
-app.on('error', (err) => {
-  clearConsole()
-  consoleOutput('ERR', 'Runtime error on server side')
-  console.error(err)
-})
-
-export default app
+export default server
