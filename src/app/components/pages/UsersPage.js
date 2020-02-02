@@ -1,11 +1,12 @@
 import React from 'react'
 
-import { useRootState, fetchData } from '@utils'
+import { fetchData } from '@utils'
+import { useStore } from '@app/store'
 import { useInitialProps } from '@app/hooks'
 
 const UsersPage = () => {
   const { isFetching } = useInitialProps(UsersPage.getInitialProps)
-  const [{ usersList }] = useRootState()
+  const [{ usersList }] = useStore((store) => store.users)
 
   return (
     <>

@@ -2,7 +2,8 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter, matchPath } from 'react-router-dom'
 
-import { routes, RootStateProvider, rootReducer } from '@utils'
+import { routes } from '@utils'
+import { StoreProvider, mainReducer, initialState } from '@app/store'
 import App from '@app/components/App'
 import getHtmlTemplate from '@public/index.html'
 
@@ -22,7 +23,9 @@ const getData = (url) => {
     }
 
     if (typeof component.getInitialProps === 'function') {
-      const initialPropsPromise = component.getInitialProps((obj) => rootReducer({}, obj))
+      const initialPropsPromise = component.getInitialProps(
+        (initializerArg) => mainReducer(initialState, initializerArg),
+      )
       acc.push(initialPropsPromise)
     }
 
@@ -39,21 +42,21 @@ const serverRenderer = async (ctx, next) => {
   }
 
   await Promise.all(promises).then((res) => {
-    const initialState = res.reduce((acc, val) => (
+    const storeState = res.reduce((acc, val) => (
       val
         ? { ...acc, ...val }
         : acc
     ), {})
 
     const initialHtml = renderToString((
-      <RootStateProvider state={initialState}>
+      <StoreProvider state={storeState}>
         <StaticRouter location={ctx.url}>
           <App />
         </StaticRouter>
-      </RootStateProvider>
+      </StoreProvider>
     ))
 
-    ctx.body = getHtmlTemplate(initialHtml, initialState)
+    ctx.body = getHtmlTemplate(initialHtml, storeState)
   })
 }
 

@@ -2,23 +2,23 @@ import React from 'react'
 import { hydrate } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 
-import { RootStateProvider, rootReducer } from '@utils'
+import { initialState, StoreProvider, mainReducer } from '@app/store'
 import App from './components/App'
 
-let initialState = {}
+let storeState = initialState
 
 if (window.INITIAL_STATE) {
-  initialState = window.INITIAL_STATE
+  storeState = { ...storeState, ...window.INITIAL_STATE }
   delete window.INITIAL_STATE
 }
 
 const hydrateApp = (Component) => {
   hydrate((
-    <RootStateProvider state={initialState} reducer={rootReducer}>
+    <StoreProvider state={storeState} reducer={mainReducer}>
       <BrowserRouter>
         {Component}
       </BrowserRouter>
-    </RootStateProvider>
+    </StoreProvider>
   ), document.getElementById('root'))
 }
 

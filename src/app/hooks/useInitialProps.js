@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { useRootState } from '@utils'
+import { useStore } from '@app/store'
 
 const initialState = {
   isFetching: false,
@@ -11,15 +11,9 @@ const initialState = {
 const reducer = (state, { type, payload }) => {
   switch (type) {
     case 'FETCH_START':
-      return {
-        ...state,
-        isFetching: true,
-      }
+      return { ...state, isFetching: true }
     case 'FETCH_SUCCESS':
-      return {
-        ...state,
-        isFetching: false,
-      }
+      return { ...state, isFetching: false }
     case 'FETCH_FAILURE':
       return {
         ...state,
@@ -33,7 +27,7 @@ const reducer = (state, { type, payload }) => {
 
 const useInitialProps = (getInitialProps) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const [, rootDispatch] = useRootState()
+  const [, storeDispatch] = useStore()
   const history = useHistory()
 
   useEffect(() => {
@@ -46,10 +40,8 @@ const useInitialProps = (getInitialProps) => {
 
       dispatch({ type: 'FETCH_START' })
 
-      getInitialProps(rootDispatch)
-        .then(() => {
-          dispatch({ type: 'FETCH_SUCCESS', payload: true })
-        })
+      getInitialProps(storeDispatch)
+        .then(() => dispatch({ type: 'FETCH_SUCCESS', payload: true }))
         .catch((err) => dispatch({ type: 'FETCH_FAILURE', payload: err }))
     }
 
