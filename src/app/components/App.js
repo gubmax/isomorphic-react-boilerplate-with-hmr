@@ -2,10 +2,11 @@ import React from 'react'
 import { Switch, Route, Link } from 'react-router-dom'
 
 import { HomePage, UsersPage } from '@app/components/pages'
+import LogoIcon from './logo.svg'
 
 const App = () => (
   <>
-    <h1>Hello World!</h1>
+    <LogoIcon height="120px" />
     <nav>
       <ul>
         <li>

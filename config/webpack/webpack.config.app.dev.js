@@ -66,6 +66,10 @@ module.exports = {
               cacheCompression: false,
             },
           },
+          {
+            test: /\.svg$/,
+            use: ['@svgr/webpack'],
+          },
         ],
       },
     ],

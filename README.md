@@ -7,6 +7,7 @@ This is a boilerplate for isomorphic app development using React, containing mod
 - Koa
 - Babel
 - ESlint
+- SVGR
 
 ## Available Scripts
 
