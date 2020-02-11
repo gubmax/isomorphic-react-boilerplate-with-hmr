@@ -25,7 +25,7 @@ const reducer = (state, { type, payload }) => {
   }
 }
 
-const useInitialProps = (getInitialProps) => {
+const useInitialProps = (getInitialProps, preload = false) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [, storeDispatch] = useStore()
   const history = useHistory()
@@ -45,7 +45,7 @@ const useInitialProps = (getInitialProps) => {
         .catch((err) => dispatch({ type: 'FETCH_FAILURE', payload: err }))
     }
 
-    if (history.action !== 'POP') {
+    if (history.action !== 'POP' || preload === true) {
       loadData()
     }
 

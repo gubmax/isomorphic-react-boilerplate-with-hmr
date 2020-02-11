@@ -5,8 +5,8 @@ import { useStore } from '@app/store'
 import { useInitialProps } from '@app/hooks'
 
 const UsersPage = () => {
-  const { isFetching } = useInitialProps(UsersPage.getInitialProps)
   const [{ usersList }] = useStore((store) => store.users)
+  const { isFetching } = useInitialProps(UsersPage.getInitialProps, !usersList.length)
 
   return (
     <>
