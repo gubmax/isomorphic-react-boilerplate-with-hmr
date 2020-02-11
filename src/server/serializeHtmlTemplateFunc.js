@@ -8,6 +8,7 @@ function serializeHtmlTemplateFunc(template) {
           window.INITIAL_STATE = \${JSON.stringify(initialState).replace(/</g, '\\\\u003c')};
           document.getElementById('state').remove();
         </script>
+        <style>\${criticalStyles}</style>
       </head>`,
     )
     .replace(
@@ -20,7 +21,7 @@ function serializeHtmlTemplateFunc(template) {
     )
 
   return `
-    function (initialHtml, initialState) {
+    function (initialHtml, criticalStyles, initialState) {
       return \`${updatedTemplate}\`
     }
   `

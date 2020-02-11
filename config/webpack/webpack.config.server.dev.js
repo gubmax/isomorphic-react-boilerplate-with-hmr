@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
 
 const StartServerPlugin = require('./StartServerWebpackPlugin')
+const styleLoaderConfig = require('./styleLoaderConfig')
 const paths = require('../paths')
 
 const { APP_PUBLIC_URL } = process.env
@@ -64,6 +65,7 @@ module.exports = {
         test: /\.svg$/,
         use: ['@svgr/webpack'],
       },
+      styleLoaderConfig,
     ],
   },
   plugins: [

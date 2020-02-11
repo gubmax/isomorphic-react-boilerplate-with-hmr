@@ -8,6 +8,7 @@ This is a boilerplate for isomorphic app development using React, containing mod
 - Babel
 - ESlint
 - SVGR
+- Isomorphic Style Loader
 
 ## Available Scripts
 

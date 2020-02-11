@@ -1,6 +1,7 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter, matchPath } from 'react-router-dom'
+import StyleContext from 'isomorphic-style-loader/StyleContext'
 
 import { routes } from '@helpers'
 import { StoreProvider, mainReducer, initialState } from '@app/store'
@@ -33,6 +34,14 @@ const getData = (url) => {
   }, [])
 }
 
+const joinStoreState = (arr) => (
+  arr.reduce((acc, val) => (
+    val
+      ? { ...acc, ...val }
+      : acc
+  ), {})
+)
+
 const serverRenderer = async (ctx, next) => {
   const promises = getData(ctx.url)
 
@@ -42,21 +51,26 @@ const serverRenderer = async (ctx, next) => {
   }
 
   await Promise.all(promises).then((res) => {
-    const storeState = res.reduce((acc, val) => (
-      val
-        ? { ...acc, ...val }
-        : acc
-    ), {})
+    // Initial Store
+    const storeState = joinStoreState(res)
 
-    const initialHtml = renderToString((
-      <StoreProvider state={storeState}>
-        <StaticRouter location={ctx.url}>
-          <App />
-        </StaticRouter>
-      </StoreProvider>
+    // Critical Styles
+    const css = new Set()
+    const insertCss = (...styles) => styles.forEach((style) => (
+      css.add(style._getCss()) // eslint-disable-line no-underscore-dangle
     ))
 
-    ctx.body = getHtmlTemplate(initialHtml, storeState)
+    const initialHtml = renderToString((
+      <StyleContext.Provider value={{ insertCss }}>
+        <StoreProvider state={storeState}>
+          <StaticRouter location={ctx.url}>
+            <App />
+          </StaticRouter>
+        </StoreProvider>
+      </StyleContext.Provider>
+    ))
+
+    ctx.body = getHtmlTemplate(initialHtml, [...css].join(''), storeState)
   })
 }
 
