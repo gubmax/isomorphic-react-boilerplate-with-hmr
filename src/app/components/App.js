@@ -9,23 +9,19 @@ import LogoIcon from './logo.svg'
 const App = () => {
   useStyles(s)
   return (
-    <>
-      <LogoIcon className={s.logo} />
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/users">Users</Link>
-          </li>
-        </ul>
-      </nav>
+    <div className={s.wrapper}>
+      <header>
+        <LogoIcon className={s.logo} />
+        <nav className={s.nav}>
+          <Link to="/" className={s.link}>Home</Link>
+          <Link to="/users" className={s.link}>Users</Link>
+        </nav>
+      </header>
       <Switch>
         <Route path="/" exact component={HomePage} />
         <Route path="/users" component={UsersPage} />
       </Switch>
-    </>
+    </div>
   )
 }
 

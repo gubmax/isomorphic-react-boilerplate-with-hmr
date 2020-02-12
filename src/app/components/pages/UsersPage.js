@@ -10,18 +10,13 @@ const UsersPage = () => {
 
   return (
     <>
-      <p>UsersPage</p>
       {
         isFetching
           ? <span>Loading...</span>
           : (
-            <ul>
-              {
-                usersList && usersList.map((user) => (
-                  <li key={user.id}>{user.name}</li>
-                ))
-              }
-            </ul>
+            usersList && usersList.map((person) => (
+              <p key={person.id}>{person.name}</p>
+            ))
           )
       }
     </>
