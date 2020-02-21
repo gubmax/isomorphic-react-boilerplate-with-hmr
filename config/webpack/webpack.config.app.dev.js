@@ -2,8 +2,8 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const paths = require('../paths')
-const styleLoaderConfig = require('./styleLoaderConfig')
-const InterpolateHtmlPlugin = require('./InterpolateHtmlPlugin')
+const styleLoaderConfig = require('./configs/styleLoaderConfig')
+const InterpolateHtmlPlugin = require('./plugins/InterpolateHtmlPlugin')
 
 const { APP_PORT, APP_PUBLIC_URL } = process.env
 

@@ -1,8 +1,8 @@
 const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
 
-const StartServerPlugin = require('./StartServerWebpackPlugin')
-const styleLoaderConfig = require('./styleLoaderConfig')
+const StartServerPlugin = require('./plugins/StartServerWebpackPlugin')
+const styleLoaderConfig = require('./configs/styleLoaderConfig')
 const paths = require('../paths')
 
 const { APP_PUBLIC_URL } = process.env
@@ -39,7 +39,7 @@ module.exports = {
               serializeFuncPath: `${paths.appPath}/src/server/serializeHtmlTemplateFunc.js`,
               replaceableVariables: { APP_PUBLIC_URL },
             },
-            loader: `${paths.appPath}/config/webpack/serializeHtmlTemplateLoader.js`,
+            loader: `${paths.appPath}/config/webpack/loaders/serializeHtmlTemplateLoader.js`,
           },
         ],
       },

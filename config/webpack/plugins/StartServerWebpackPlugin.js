@@ -1,7 +1,7 @@
 const cluster = require('cluster')
 
 const { APP_SERVER_PORT } = process.env
-const { clearConsole, isInteractive, consoleOutput } = require('../etc/console')
+const { clearConsole, isInteractive, consoleOutput } = require('../../etc/console')
 
 class StartServerPlugin {
   constructor(options) {
