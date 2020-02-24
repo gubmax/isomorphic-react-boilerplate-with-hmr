@@ -1,5 +1,7 @@
 # Isomorphic react boilerplate
 
+![Promo](promo.png)
+
 This is a boilerplate for isomorphic app development using React, containing modern web development tools:
 - React
 - React Router
