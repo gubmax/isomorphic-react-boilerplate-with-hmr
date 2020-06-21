@@ -1,4 +1,4 @@
-const { APP_PROTOCOL, APP_HOST, APP_PORT } = process.env
+const { protocol, host, port } = require('../../config/settings')
 
 function serializeHtmlTemplateFunc(template) {
   const updatedTemplate = template
@@ -17,7 +17,7 @@ function serializeHtmlTemplateFunc(template) {
     )
     .replace(
       /<\/body>/,
-      `<script type="text/javascript" src="${APP_PROTOCOL}://${APP_HOST}:${APP_PORT}/bundle.js"></script></body>`,
+      `<script type="text/javascript" src="${protocol}://${host}:${port}/bundle.js"></script></body>`,
     )
 
   return `

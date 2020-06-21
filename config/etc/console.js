@@ -3,10 +3,6 @@ const chalk = require('chalk')
 
 const appName = require('../../package.json').name
 
-const {
-  APP_PROTOCOL, APP_HOST, APP_PORT, APP_SERVER_PORT,
-} = process.env
-
 const consoleOutput = (type, text) => {
   const colorsByType = {
     INFO: 'cyan',
@@ -36,9 +32,13 @@ const consoleSuccessMsg = () => {
   console.log(`You can now view ${chalk.bold(appName)} in the browser.\n`)
 }
 
-const consoleAppLink = () => console.log(`${chalk.bold('App:')} ${APP_PROTOCOL}://${APP_HOST}:${chalk.bold(APP_PORT)}\n`)
+const consoleAppLink = (protocol, host, port) => (
+  console.log(`${chalk.bold('App:')} ${protocol}://${host}:${chalk.bold(port)}\n`)
+)
 
-const consoleServerLink = () => console.log(`${chalk.bold('Server:')} ${APP_PROTOCOL}://${APP_HOST}:${chalk.bold(APP_SERVER_PORT)}\n`)
+const consoleServerLink = (protocol, host, port) => (
+  console.log(`${chalk.bold('Server:')} ${protocol}://${host}:${chalk.bold(port)}\n`)
+)
 
 module.exports = {
   consoleOutput,

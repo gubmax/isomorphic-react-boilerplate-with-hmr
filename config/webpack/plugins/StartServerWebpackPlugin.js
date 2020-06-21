@@ -1,10 +1,9 @@
 const cluster = require('cluster')
 
-const { APP_SERVER_PORT } = process.env
 const { clearConsole, isInteractive, consoleOutput } = require('../../etc/console')
 
 class StartServerPlugin {
-  constructor(options) {
+  constructor(options, inspectPort) {
     if (options == null || typeof options !== 'string') {
       if (isInteractive) {
         clearConsole()
@@ -14,6 +13,7 @@ class StartServerPlugin {
     }
 
     this.bundleName = options
+    this.inspectPort = inspectPort
     this.worker = null
     this.afterEmit = this.afterEmit.bind(this)
     this.apply = this.apply.bind(this)
@@ -21,7 +21,7 @@ class StartServerPlugin {
   }
 
   startServer(compilation, callback) {
-    const { bundleName } = this
+    const { bundleName, inspectPort } = this
     const { assets } = compilation
     const assetName = assets[bundleName]
 
@@ -34,7 +34,7 @@ class StartServerPlugin {
 
     const clusterOptions = {
       exec: assetName.existsAt,
-      inspectPort: APP_SERVER_PORT,
+      inspectPort,
     }
 
     cluster.setupMaster(clusterOptions)

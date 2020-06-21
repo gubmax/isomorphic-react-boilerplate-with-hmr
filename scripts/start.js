@@ -4,6 +4,9 @@ process.env.BABEL_ENV = 'development'
 process.env.NODE_ENV = 'development'
 
 require('../config/env')
+const {
+  protocol, host, port, serverPort,
+} = require('../config/settings')
 const paths = require('../config/paths')
 const {
   consoleOutput, consoleSuccessMsg, consoleAppLink, consoleServerLink,
@@ -26,8 +29,8 @@ let isNotFirstCompilling = false
 const onMessage = (display) => {
   const consoleMsg = () => {
     consoleSuccessMsg()
-    consoleAppLink()
-    consoleServerLink()
+    consoleAppLink(protocol, host, port)
+    consoleServerLink(protocol, host, serverPort)
   }
 
   if (isNotFirstCompilling) {

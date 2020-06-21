@@ -1,10 +1,11 @@
 import http from 'http'
 
+import { serverPort } from '@config/settings'
 import app from './app'
 
 const server = http.createServer(app.callback())
 
-server.listen(process.env.APP_SERVER_PORT)
+server.listen(serverPort)
 
 if (module.hot) {
   let currentApp = app

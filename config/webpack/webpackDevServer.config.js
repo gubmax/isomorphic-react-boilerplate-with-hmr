@@ -1,25 +1,25 @@
-const config = require('./webpack.config.app.dev')
-
 const paths = require('../paths')
 
-const { APP_PROTOCOL, APP_HOST, APP_PORT } = process.env
-
-module.exports = {
-  compress: true,
-  clientLogLevel: 'none',
-  contentBase: paths.appPublic,
-  watchContentBase: true,
-  hot: true,
-  publicPath: config.output.publicPath,
-  quiet: true,
-  https: APP_PROTOCOL === 'https',
-  host: APP_HOST,
-  port: APP_PORT,
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-  },
-  overlay: false,
-  historyApiFallback: {
-    disableDotRule: true,
-  },
+function devServerConfigFactory(protocol, host, port, publicPath) {
+  return {
+    compress: true,
+    clientLogLevel: 'none',
+    contentBase: paths.appPublic,
+    watchContentBase: true,
+    hot: true,
+    publicPath: publicPath || '/',
+    quiet: true,
+    https: protocol === 'https',
+    host,
+    port,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    overlay: false,
+    historyApiFallback: {
+      disableDotRule: true,
+    },
+  }
 }
+
+module.exports = devServerConfigFactory
